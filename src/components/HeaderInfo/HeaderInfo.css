@@ -1,0 +1,17 @@
+.header-info-container {
+    width: 100%;
+}
+
+.header-info-container > span {
+    color: yellow;
+    font-size: 25px;
+}
+
+.header-info-left {
+    justify-content: start;
+}
+
+.header-info-right {
+    justify-content: end;
+    float: right;
+}

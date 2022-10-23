@@ -1,0 +1,35 @@
+.bus-table {
+    background-color: black;
+    display: inline-block;
+    min-height: 100%;
+    zoom: 275%;
+}
+
+.bus-table table {
+    width: 100%;
+    min-height: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+    .bus-table {
+        zoom: 250%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .bus-table {
+        zoom: 175%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .bus-table {
+        zoom: 125%;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .bus-table {
+        zoom: 100%;
+    }
+}

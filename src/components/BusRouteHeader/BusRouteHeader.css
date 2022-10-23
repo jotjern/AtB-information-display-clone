@@ -1,0 +1,9 @@
+.bus-route-header {
+    font-size: 0.6em;
+}
+
+.bus-route-divider {
+    margin: 0;
+    border: 0.75px solid white;
+    background-color: white;
+}

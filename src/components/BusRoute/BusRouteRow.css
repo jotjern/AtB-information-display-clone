@@ -1,0 +1,25 @@
+.bus-route {
+    color: white;
+    text-align: left;
+}
+
+.bus-route-now {
+    color: yellow;
+}
+
+.bus-route-destination {
+    white-space: wrap;
+}
+
+.bus-route-departure {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.bus-route-line {
+    white-space: nowrap;
+}
+
+.bus-route-header {
+    box-shadow: 0 0 0 0px #ffffff;
+}
