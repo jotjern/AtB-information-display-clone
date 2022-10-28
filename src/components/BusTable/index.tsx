@@ -23,7 +23,7 @@ export default function BusTable(props: { style: any }) {
       if (!departure) return;
         const bus_routes = Array.from(departure.departures).map(departure => (
           {
-            departure: new Date(departure.aimedDepartureTime),
+            departure: new Date(departure.aimedArrivalTime),
             destination: departure["destinationDisplay"]["frontText"],
             line: departure["serviceJourney"]["journeyPattern"] ? departure["serviceJourney"]["journeyPattern"]["line"]["publicCode"] : "",
           } as BusRouteProps
