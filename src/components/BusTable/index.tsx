@@ -28,8 +28,11 @@ export default function BusTable(props: { style: any }) {
             line: departure["serviceJourney"]["journeyPattern"] ? departure["serviceJourney"]["journeyPattern"]["line"]["publicCode"] : "",
           } as BusRouteProps
         ));
+        
         setBusRoutes(bus_routes.sort((a, b) => {
-          const time_diff = Math.floor((a.departure.getTime() - b.departure.getTime()) / 1000 / 60);
+          const time_a = Math.floor((a.departure.getTime() - Date.now()) / 60000);
+          const time_b = Math.floor((b.departure.getTime() - Date.now()) / 60000);
+          const time_diff = time_a - time_b;
 
           if (time_diff === 0) {
             if (a.line < b.line) return -1;
