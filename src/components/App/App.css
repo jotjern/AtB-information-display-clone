@@ -1,6 +1,8 @@
 .App {
     position: absolute;
     inset: 5px;
+    font-size: 1.33em;
+    cursor: none;
 }
 
 *::-webkit-scrollbar {
