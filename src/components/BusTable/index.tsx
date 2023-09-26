@@ -1,64 +1,45 @@
-import './BusTable.css';
+import * as time_utils from "../../utils/time_utils";
+import { EstimatedCallType } from "../../utils/entur_types";
+import "./index.css";
 
-import { useEffect, useState } from "react";
-import createEnturClient from '@entur/sdk';
-
-import BusRoute, { BusRouteProps } from '../BusRoute';
-import BusRouteHeader from '../BusRouteHeader';
-import HeaderInfo from '../HeaderInfo';
-
-const minutes = 60 * 1000;
-
-const enturClient = createEnturClient({
-    clientName: "my-awesome-app",
-});
-
-
-export default function BusTable(props: { style: any }) {
-  const [busRoutes, setBusRoutes] = useState<BusRouteProps[]>([]);
-
-  function updateBusRoutes() {
-    enturClient.getDeparturesFromQuays(["NSR:Quay:73975"]).then(departures => {
-      const departure = departures[0];
-      if (!departure) return;
-        const bus_routes = Array.from(departure.departures).map(departure => (
-          {
-            departure: new Date(departure.expectedDepartureTime),
-            destination: departure["destinationDisplay"]["frontText"],
-            line: departure["serviceJourney"]["journeyPattern"] ? departure["serviceJourney"]["journeyPattern"]["line"]["publicCode"] : "",
-          } as BusRouteProps
-        ));
-        
-        setBusRoutes(bus_routes.sort((a, b) => {
-          const time_a = Math.floor((a.departure.getTime() - Date.now()) / 60000);
-          const time_b = Math.floor((b.departure.getTime() - Date.now()) / 60000);
-          const time_diff = time_a - time_b;
-
-          if (time_diff === 0) {
-            if (a.line < b.line) return -1;
-            if (a.line > b.line) return 1;
-            return 0;
-          }
-
-          return time_diff;
-        }));
-    });
-  }
-
-  useEffect(() => {
-    setInterval(updateBusRoutes, 5000);
-    updateBusRoutes();
-  }, []);
-
+export default function BusTable(props: {
+  departures: EstimatedCallType[];
+  departureFetchTime: Date;
+}) {
   return (
-    <div className="bus-table" style={props.style || {}}>
-      <HeaderInfo/>        
+    <div className="bus-table">
+      <div className="bus-table-header-container">
+        <div className="bus-table-header-title">Solsiden</div>
+        <div className="bus-table-header-time">
+          {time_utils.format_string(props.departureFetchTime)}
+        </div>
+      </div>
+
       <table>
         <thead>
-          <BusRouteHeader />
+          <tr>
+            <th className="departure-line-id">Rute</th>
+            <th className="departure-line-name">Til</th>
+            <th className="departure-line-time">Avgang</th>
+          </tr>
         </thead>
         <tbody>
-          {busRoutes.map((bus_route, index) => <BusRoute key={index} {...bus_route} />)}
+          {props.departures.map((departure, index) => (
+            <tr key={index}>
+              <td className="departure-line-id">
+                {departure.serviceJourney?.journeyPattern?.line?.publicCode ?? "N/A"}
+              </td>
+              <td className="departure-line-name">
+                {departure.destinationDisplay?.frontText ?? "N/A"}
+              </td>
+              <td className="departure-line-time">
+                {time_utils.departure_time_to_string(
+                  departure.expectedArrivalTime,
+                  departure.aimedArrivalTime,
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
