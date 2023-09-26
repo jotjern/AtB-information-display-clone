@@ -24,8 +24,11 @@ export default function BusTable(props: {
           </tr>
         </thead>
         <tbody>
-          {props.departures.map((departure, index) => {
-            const departureTime = time_utils.departure_time_to_string(departure.expectedArrivalTime, departure.aimedArrivalTime);
+          {props
+              .departures
+              .sort(time_utils.departure_sorter)
+              .map((departure, index) => {
+            const departureTime = time_utils.departure_time_to_string(departure);
             return <tr key={index} className={"departure-line " + (departureTime === "Nå" ? "departure-line-now" : "")}>
               <td className="departure-line-id">
                 {departure.serviceJourney?.journeyPattern?.line?.publicCode ?? "N/A"}

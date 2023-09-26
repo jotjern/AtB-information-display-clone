@@ -1,3 +1,5 @@
+import {EstimatedCallType} from "./entur_types.ts";
+
 export function format_string(date: Date): string {
   return date.toLocaleTimeString("nb-NO", {
     hour: "2-digit",
@@ -5,10 +7,24 @@ export function format_string(date: Date): string {
   });
 }
 
-export function departure_time_to_string(
-  exact_departure_time: string | null,
-  aimed_departure_time: string | null,
-): string {
+export function departure_sorter(departure_a: EstimatedCallType, departure_b: EstimatedCallType): number {
+  const departure_time_a_string = (
+    departure_a.expectedArrivalTime ||
+    departure_a.aimedArrivalTime
+  );
+    const departure_time_b_string = (
+    departure_b.expectedArrivalTime ||
+    departure_b.aimedArrivalTime
+    );
+    const departure_time_a = departure_time_a_string !== null ? new Date(departure_time_a_string) : new Date(0);
+    const departure_time_b = departure_time_b_string !== null ? new Date(departure_time_b_string) : new Date(0);
+
+    return departure_time_a.getTime() - departure_time_b.getTime();
+}
+
+export function departure_time_to_string(departure: EstimatedCallType): string {
+  const exact_departure_time = departure.expectedArrivalTime;
+    const aimed_departure_time = departure.aimedArrivalTime;
   if (exact_departure_time === null && aimed_departure_time === null)
     return "N/A";
 
