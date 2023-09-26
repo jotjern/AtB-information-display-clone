@@ -44,3 +44,7 @@
 .departure-line-time {
   text-align: right;
 }
+
+.departure-line-now {
+  color: yellow;
+}
