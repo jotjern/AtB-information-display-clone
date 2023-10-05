@@ -32,7 +32,7 @@ export function departure_time_to_string(departure: EstimatedCallType): string {
     exact_departure_time !== null
       ? new Date(exact_departure_time)
       : new Date(aimed_departure_time!);
-  const minutes_until_departure = Math.floor(
+  const minutes_until_departure = Math.ceil(
     (new Date(departure_time).getTime() - Date.now()) / 60000,
   );
 
