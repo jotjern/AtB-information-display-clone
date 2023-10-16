@@ -24,7 +24,7 @@ export default function App(props: { quayId: string }) {
     },
   );
 
-  const [debug, setDebug] = useState(new URLSearchParams(window.location.search).get("debug") === "true");
+  const [debug, _] = useState(new URLSearchParams(window.location.search).get("debug") === "true");
 
   return (
     <div className="App">
