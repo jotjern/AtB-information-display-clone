@@ -27,7 +27,7 @@ export default function BusTable(props: {
                             {departure.serviceJourney?.journeyPattern?.line?.publicCode ?? "N/A"}
                         </td>
                         <td>
-                            {departureTime ? Math.floor((new Date(departureTime).getTime() - props.departureFetchTime.getTime()) / 1000) : ""}
+                            {departureTime ? (Math.floor((new Date(departureTime).getTime() - props.departureFetchTime.getTime()) / 1000) % 60) : ""}
                         </td>
                         <td>
                             {departureTime ? Math.floor((new Date(departureTime).getTime() - props.departureFetchTime.getTime()) / 1000 / 60) : ""}
