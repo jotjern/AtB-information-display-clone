@@ -32,9 +32,10 @@ export function departure_time_to_string(departure: EstimatedCallType): string {
     exact_departure_time !== null
       ? new Date(exact_departure_time)
       : new Date(aimed_departure_time!);
-  const minutes_until_departure = Math.ceil(
-    (new Date(departure_time).getTime() - Date.now()) / 60000,
-  );
+
+  const seconds_until_departure = (new Date(departure_time).getTime() - Date.now()) / 1000;
+  // This is how the actual information display calculates the minutes, according to my testing
+  const minutes_until_departure = Math.ceil((seconds_until_departure + 20) / 60);
 
   if (minutes_until_departure <= 0) {
     return "Nå";
