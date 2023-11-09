@@ -4,6 +4,10 @@ import "./index.css";
 import App from "./components/App";
 import { QueryClient, QueryClientProvider } from "react-query";
 
+setTimeout(() => {
+	window.location.reload();
+}, 1000 * 60 * 60);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
