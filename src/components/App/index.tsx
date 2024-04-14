@@ -16,11 +16,12 @@ export default function App(props: { quayId: string }) {
       };
     },
     {
-      refetchInterval: 1_000,
+      refetchInterval: 5_000,
       refetchIntervalInBackground: true,
-      staleTime: 10_000,
-      retryDelay: 10_000,
+      staleTime: 30_000,
+      retryDelay: 1_000,
       retry: 1_000_000,
+      refetchOnReconnect: true
     },
   );
 
