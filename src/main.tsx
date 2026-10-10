@@ -17,7 +17,7 @@ const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App quayId={"NSR:Quay:73975"} />
+      <App quayId={"NSR:Quay:101521"} />
     </QueryClientProvider>
   </React.StrictMode>,
 );
