@@ -10,6 +10,16 @@
   align-items: center;
 }
 
+.bus-table-header-title {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
 .bus-table table {
   color: white;
   font-size: 3.1em;

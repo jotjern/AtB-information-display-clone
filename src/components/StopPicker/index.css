@@ -1,0 +1,87 @@
+.stop-picker {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  color: white;
+  padding: 0.8em;
+  overflow-y: auto;
+  font-size: 2.5em;
+}
+
+.stop-picker button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.stop-picker-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border-bottom: 7px solid white;
+  padding-bottom: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.stop-picker-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: yellow;
+  font: inherit;
+  font-size: 1.6em;
+}
+
+.stop-picker-input::placeholder {
+  color: #666;
+}
+
+.stop-picker .stop-picker-back {
+  flex: 1;
+  text-align: left;
+  color: yellow;
+  font-size: 1.6em;
+}
+
+.stop-picker .stop-picker-close {
+  font-size: 1.2em;
+}
+
+.stop-picker-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stop-picker-list button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+  text-align: left;
+  padding: 0.3em 0;
+}
+
+.stop-picker-list button:hover {
+  color: yellow;
+}
+
+.stop-picker-secondary {
+  color: #999;
+}
+
+.stop-picker-lines {
+  color: #999;
+  text-align: right;
+}
+
+.stop-picker-empty {
+  color: #999;
+  padding: 0.3em 0;
+}

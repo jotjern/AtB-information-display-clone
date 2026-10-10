@@ -3,13 +3,19 @@ import { EstimatedCallType } from "../../utils/entur_types";
 import "./index.css";
 
 export default function BusTable(props: {
+  stopName: string;
+  platform: string | null;
   departures: EstimatedCallType[];
   departureFetchTime: Date;
+  onTitleClick: () => void;
 }) {
   return (
     <div className="bus-table">
       <div className="bus-table-header-container">
-        <div className="bus-table-header-title">Olav Tryggvasons gate</div>
+        <button className="bus-table-header-title" onClick={props.onTitleClick}>
+          {props.stopName}
+          {props.platform && ` ${props.platform}`}
+        </button>
         <div className="bus-table-header-time">
           {time_utils.format_string(props.departureFetchTime)}
         </div>
