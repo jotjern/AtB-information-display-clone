@@ -9,7 +9,7 @@ export default function BusTable(props: {
   return (
     <div className="bus-table">
       <div className="bus-table-header-container">
-        <div className="bus-table-header-title">Solsiden</div>
+        <div className="bus-table-header-title">Olav Tryggvasons gate</div>
         <div className="bus-table-header-time">
           {time_utils.format_string(props.departureFetchTime)}
         </div>
