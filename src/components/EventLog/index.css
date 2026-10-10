@@ -1,0 +1,68 @@
+.event-log {
+  color: white;
+  padding: 1em;
+  font-family: monospace;
+}
+
+.event-log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-log-actions {
+  display: flex;
+  gap: 0.5em;
+}
+
+.event-log button {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  font: inherit;
+  padding: 0.3em 0.8em;
+  cursor: pointer;
+}
+
+.event-log-totals {
+  display: flex;
+  gap: 1.5em;
+  margin-bottom: 1em;
+}
+
+.event-log table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.event-log th,
+.event-log td {
+  text-align: left;
+  padding: 0.2em 1em 0.2em 0;
+  white-space: nowrap;
+}
+
+.event-log th {
+  border-bottom: 1px solid white;
+}
+
+.event-log-success {
+  color: #888;
+}
+
+.event-log-failure {
+  color: #f80;
+}
+
+.event-log-offline {
+  color: #f44;
+}
+
+.event-log-online {
+  color: #4c4;
+}
+
+.event-log-load,
+.event-log-stop-change {
+  color: yellow;
+}
