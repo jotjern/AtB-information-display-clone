@@ -3,16 +3,15 @@ import * as time_utils from "../../utils/time_utils";
 import { EstimatedCallType } from "../../utils/entur_types";
 import "./index.css";
 
-// Hide rows that would only be partially visible at the bottom of the screen
+// Hide rows that would only be partially visible at the bottom of the screen,
+// plus one more to leave some space at the bottom
 function hideOverflowingRows(tbody: HTMLTableSectionElement | null) {
   if (!tbody) return;
   const rows = Array.from(tbody.rows);
   rows.forEach(row => row.style.visibility = "");
-  rows.forEach(row => {
-    if (row.getBoundingClientRect().bottom > window.innerHeight) {
-      row.style.visibility = "hidden";
-    }
-  });
+  const fittingRows = rows.filter(row => row.getBoundingClientRect().bottom <= window.innerHeight).length;
+  const visibleRows = Math.max(fittingRows - 1, 1);
+  rows.slice(visibleRows).forEach(row => row.style.visibility = "hidden");
 }
 
 export default function BusTable(props: {
