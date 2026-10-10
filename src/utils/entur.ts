@@ -9,6 +9,7 @@ import {
 const GRAPHQL_ENDPOINT = "https://api.entur.io/journey-planner/v3/graphql";
 const GEOCODER_ENDPOINT = "https://api.entur.io/geocoder/v1/autocomplete";
 const CLIENT_NAME = "entur-info-screen";
+const REQUEST_TIMEOUT_MS = 10_000;
 
 export type QuayDepartures = {
   name: string;
@@ -33,7 +34,8 @@ async function graphql(query: string, variables: Record<string, unknown>) {
   const response = await axios.post(GRAPHQL_ENDPOINT, { query, variables }, {
     headers: {
       "ET-Client-Name": CLIENT_NAME,
-    }
+    },
+    timeout: REQUEST_TIMEOUT_MS,
   });
   return response.data;
 }
@@ -88,7 +90,8 @@ export async function searchStops(text: string): Promise<StopSearchResult[]> {
     params: { text, layers: "venue", size: 10 },
     headers: {
       "ET-Client-Name": CLIENT_NAME,
-    }
+    },
+    timeout: REQUEST_TIMEOUT_MS,
   });
 
   const parsed_response = GeocoderResponse.safeParse(response.data);

@@ -49,6 +49,10 @@ export default function BusTable(props: {
             })}
         </tbody>
       </table>
+
+      <div className="bus-table-last-update">
+        {props.departureFetchTime.toLocaleTimeString("nb-NO")}
+      </div>
     </div>
   );
 }

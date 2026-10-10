@@ -9,6 +9,8 @@ import { FiWifiOff } from "react-icons/fi";
 import {useState} from "react";
 
 const QUAY_COOKIE = "quayId";
+const OFFLINE_AFTER_MS = 90_000;
+const RETRY_DELAY_MS = 1_000;
 
 function getSavedQuayId(): string | null {
   const quayId = getCookie(QUAY_COOKIE);
@@ -22,16 +24,20 @@ export default function App(props: { defaultQuayId: string }) {
   const query = useQuery({
     queryKey: ["bus-routes", quayId],
     queryFn: async () => {
+      const quay = await getDeparturesForQuay(quayId);
+      if (!quay) {
+        throw new Error(`No departure data for ${quayId}`);
+      }
       return {
-        quay: await getDeparturesForQuay(quayId),
+        quay,
         departureFetchTime: new Date(),
       };
     },
     refetchInterval: 5_000,
     refetchIntervalInBackground: true,
-    staleTime: 30_000,
-    retryDelay: 1_000,
-    retry: 1_000_000,
+    staleTime: OFFLINE_AFTER_MS,
+    retryDelay: RETRY_DELAY_MS,
+    retry: OFFLINE_AFTER_MS / RETRY_DELAY_MS,
     refetchOnReconnect: true
   });
 
@@ -43,18 +49,19 @@ export default function App(props: { defaultQuayId: string }) {
     setPickerOpen(false);
   };
 
+  const offline = query.isError || (query.data !== undefined && query.isStale);
+
   if (pickerOpen) {
     return <StopPicker onSelect={selectQuay} onClose={() => setPickerOpen(false)} />;
   }
 
   return (
     <div className="App">
-      {query.isStale ||
-      query.data === undefined ||
-        !query.data.quay ?
+      {offline ?
         <div className="offline-container">
           <FiWifiOff color="white" size="50vw" className="offline-icon" />
         </div>
+       : query.data === undefined ? null
        : ( debug ?
                   <DebugTable
                     departures={query.data.quay.departures}

@@ -58,3 +58,11 @@
 .departure-line-now {
   color: yellow;
 }
+
+.bus-table-last-update {
+  position: fixed;
+  left: 0.5em;
+  bottom: 0.5em;
+  color: #444;
+  font-size: 1.2em;
+}
