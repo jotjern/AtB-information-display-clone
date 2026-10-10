@@ -1,6 +1,19 @@
+import { useEffect, useLayoutEffect, useRef } from "react";
 import * as time_utils from "../../utils/time_utils";
 import { EstimatedCallType } from "../../utils/entur_types";
 import "./index.css";
+
+// Hide rows that would only be partially visible at the bottom of the screen
+function hideOverflowingRows(tbody: HTMLTableSectionElement | null) {
+  if (!tbody) return;
+  const rows = Array.from(tbody.rows);
+  rows.forEach(row => row.style.visibility = "");
+  rows.forEach(row => {
+    if (row.getBoundingClientRect().bottom > window.innerHeight) {
+      row.style.visibility = "hidden";
+    }
+  });
+}
 
 export default function BusTable(props: {
   stopName: string;
@@ -9,6 +22,17 @@ export default function BusTable(props: {
   departureFetchTime: Date;
   onTitleClick: () => void;
 }) {
+  const tbodyRef = useRef<HTMLTableSectionElement>(null);
+
+  useLayoutEffect(() => hideOverflowingRows(tbodyRef.current));
+
+  useEffect(() => {
+    const update = () => hideOverflowingRows(tbodyRef.current);
+    window.addEventListener("resize", update);
+    document.fonts.ready.then(update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   return (
     <div className="bus-table">
       <div className="bus-table-header-container">
@@ -29,7 +53,7 @@ export default function BusTable(props: {
             <th className="departure-line-time">Avgang</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody ref={tbodyRef}>
           {props
               .departures
               .sort(time_utils.departure_sorter)
