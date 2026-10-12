@@ -27,7 +27,8 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - name: Publish deployment revision for the infoscreen
-        run: node --input-type=module -e 'import { writeFileSync } from "node:fs"; writeFileSync("dist/version.json", JSON.stringify({ revision: process.env.GITHUB_SHA }) + "\n");'
+        run: |
+          node --input-type=module -e 'import { writeFileSync } from "node:fs"; writeFileSync("dist/version.json", JSON.stringify({ revision: process.env.GITHUB_SHA }) + "\n");'
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
