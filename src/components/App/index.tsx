@@ -88,7 +88,7 @@ export default function App(props: { defaultQuayId: string }) {
 
   return (
     <div className="App">
-      swag
+      <p style={{color: "white"}}>swag</p>
       {offline ?
         <div className="offline-container">
           <FiWifiOff color="white" size="50vw" className="offline-icon" />
